@@ -24,11 +24,12 @@ if (typeof window !== 'undefined') {
 <template>
   <div class="min-h-screen" :data-theme="currentTheme">
     <nav class="navbar bg-base-300">
-      <div class="flex-1 gap-2">
-        <img src="@/assets/logo.svg" alt="Logo" class="p-2" />
+      <div class="flex-1">
         <div class="breadcrumbs text-lg">
           <ul>
-            <li><a>Home</a></li>
+            <li>
+              <a><img src="@/assets/logo.svg" alt="Logo" class="p-2" /></a>
+            </li>
             <li><a>Logo</a></li>
             <li>Sean's Logo</li>
           </ul>
