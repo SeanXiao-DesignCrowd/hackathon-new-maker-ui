@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { TABS } from './constants/constants'
+import Text from './components/SiderBar/SbText.vue'
 
 const themes = ['light', 'dark', 'black', 'luxury', 'cyberpunk']
 
@@ -8,7 +10,7 @@ const showSuccessAlert = ref(false)
 const successAlertContent = ref('')
 const showDownloadingToast = ref(false)
 const downloadingToastContent = ref('')
-const currentTab = ref('text')
+const currentTab = ref(TABS.TEXT)
 
 const toggleSuccessAlert = (content: string) => {
   showSuccessAlert.value = true
@@ -71,7 +73,7 @@ if (typeof window !== 'undefined') {
       </div>
     </nav>
 
-    <div id="alerts" class="absolute top-22 w-full">
+    <div id="alerts" class="absolute top-22 w-full z-[1]">
       <div v-if="showSuccessAlert" role="alert" class="alert alert-success">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -97,15 +99,15 @@ if (typeof window !== 'undefined') {
     </div>
 
     <main class="p-6 w-full flex gap-6">
-      <div class="left-side-container flex flex-col flex-grow w-3/5 gap-4 items-center">
-        <div id="maker-canvas" class="hero border-4 border-dashed" style="height: 600px">
+      <div class="left-side-container flex flex-col flex-grow w-2/3 gap-6 items-center h-full">
+        <div id="maker-canvas" class="hero border-4 border-dashed border-base-300">
           <div class="hero-content text-center">
-            <img src="@/assets/radiohead-logo.png" alt="Canvas" style="height: 560px" />
+            <img src="@/assets/radiohead-logo.png" alt="Canvas" :style="{ height: '66vh' }" />
           </div>
         </div>
 
-        <div id="maker-bottom-container" class="rounded-box bg-base-200 absolute bottom-4">
-          <div class="hero-content text-center">
+        <div id="maker-bottom-container" class="hero position-absolute border-6">
+          <div class="hero-content text-center flex gap-16 rounded-box bg-base-200">
             <button class="btn btn-primary w-36" @click="toggleSuccessAlert('Your logo is saved!')">
               Save progress
             </button>
@@ -119,37 +121,55 @@ if (typeof window !== 'undefined') {
         </div>
       </div>
 
-      <div class="right-side-container flex-grow">
-        <div role="tablist" class="tabs tabs-bordered">
+      <div class="right-side-container flex-grow w-1/3" :style="{ height: '80vh' }">
+        <div role="tablist" class="tabs tabs-lifted">
           <a
             role="tab"
             class="tab"
-            :class="{ 'tab-active': currentTab === 'text', '!bg-base-200': currentTab === 'text' }"
-            @click="currentTab = 'text'"
+            :class="{
+              'tab-active': currentTab === TABS.TEXT,
+              '!bg-base-200': currentTab === TABS.TEXT,
+            }"
+            @click="currentTab = TABS.TEXT"
             >Text</a
           >
           <a
             role="tab"
             class="tab"
             :class="{
-              'tab-active': currentTab === 'shape',
-              '!bg-base-200': currentTab === 'shape',
+              'tab-active': currentTab === TABS.SHAPE,
+              '!bg-base-200': currentTab === TABS.SHAPE,
             }"
-            @click="currentTab = 'shape'"
+            @click="currentTab = TABS.SHAPE"
             >Shape</a
           >
           <a
             role="tab"
             class="tab"
             :class="{
-              'tab-active': currentTab === 'animate',
-              '!bg-base-200': currentTab === 'animate',
+              'tab-active': currentTab === TABS.LAYOUT,
+              '!bg-base-200': currentTab === TABS.LAYOUT,
             }"
-            @click="currentTab = 'animate'"
-            >Animate</a
+            @click="currentTab = TABS.LAYOUT"
+            >Layout</a
           >
         </div>
-        <div class="bg-base-200 p-4 h-full">Sidebar</div>
+        <div
+          class="bg-base-200 p-4 h-full border border-t-0 border-base-300"
+          :class="{
+            'rounded-b-lg': currentTheme !== 'black' && currentTheme !== 'cyberpunk',
+          }"
+        >
+          <div v-if="currentTab === TABS.TEXT">
+            <Text />
+          </div>
+          <div v-if="currentTab === TABS.SHAPE">
+            <shape />
+          </div>
+          <div v-if="currentTab === TABS.LAYOUT">
+            <layout />
+          </div>
+        </div>
       </div>
     </main>
   </div>
