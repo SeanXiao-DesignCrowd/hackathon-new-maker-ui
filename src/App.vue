@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { TABS } from './constants/constants'
 import Text from './components/SiderBar/SbText.vue'
 import Shape from './components/SiderBar/SbShape.vue'
+import Layout from './components/SiderBar/SbLayout.vue'
 
 const themes = ['light', 'dark', 'black', 'luxury', 'cyberpunk']
 
