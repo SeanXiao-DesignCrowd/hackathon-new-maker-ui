@@ -6,8 +6,9 @@ const themes = ['light', 'dark', 'black', 'luxury', 'cyberpunk']
 const currentTheme = ref('light')
 const showSuccessAlert = ref(false)
 const successAlertContent = ref('')
-const showInfoAlert = ref(false)
-const infoAlertContent = ref('')
+const showDownloadingToast = ref(false)
+const downloadingToastContent = ref('')
+const currentTab = ref('text')
 
 const toggleSuccessAlert = (content: string) => {
   showSuccessAlert.value = true
@@ -18,13 +19,13 @@ const toggleSuccessAlert = (content: string) => {
   }, 1000)
 }
 
-const toggleInfoAlert = (content: string) => {
-  showInfoAlert.value = true
-  infoAlertContent.value = content
+const toggleDownloadingToast = (content: string) => {
+  showDownloadingToast.value = true
+  downloadingToastContent.value = content
   setTimeout(() => {
-    showInfoAlert.value = false
-    infoAlertContent.value = ''
-  }, 1000)
+    showDownloadingToast.value = false
+    downloadingToastContent.value = ''
+  }, 3000)
 }
 
 const updateTheme = (theme: string) => {
@@ -87,30 +88,19 @@ if (typeof window !== 'undefined') {
         </svg>
         <span>{{ successAlertContent }}</span>
       </div>
+    </div>
 
-      <div v-if="showInfoAlert" role="alert" class="alert alert-info">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-6 w-6 shrink-0 stroke-current"
-          fill="none"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-          />
-        </svg>
-        <span>{{ infoAlertContent }}</span>
+    <div v-if="showDownloadingToast" class="toast">
+      <div class="alert alert-info">
+        <span>{{ downloadingToastContent }}</span>
       </div>
     </div>
 
-    <main class="p-4 w-full flex gap-4">
-      <div class="left-side-container flex flex-col flex-grow gap-4 items-center">
+    <main class="p-6 w-full flex gap-6">
+      <div class="left-side-container flex flex-col flex-grow w-3/5 gap-4 items-center">
         <div id="maker-canvas" class="hero border-4 border-dashed" style="height: 600px">
           <div class="hero-content text-center">
-            <h1 class="text-5xl font-bold">this is the canvas</h1>
+            <img src="@/assets/radiohead-logo.png" alt="Canvas" style="height: 560px" />
           </div>
         </div>
 
@@ -121,7 +111,7 @@ if (typeof window !== 'undefined') {
             </button>
             <button
               class="btn btn-secondary w-36"
-              @click="toggleInfoAlert('Your logo is downloading...')"
+              @click="toggleDownloadingToast('Your logo is downloading...')"
             >
               Download
             </button>
@@ -130,8 +120,36 @@ if (typeof window !== 'undefined') {
       </div>
 
       <div class="right-side-container flex-grow">
-        <div id="tabs" class="flex flex-col"></div>
-        <div class="rounded-box bg-base-200 p-4">Sidebar</div>
+        <div role="tablist" class="tabs tabs-bordered">
+          <a
+            role="tab"
+            class="tab"
+            :class="{ 'tab-active': currentTab === 'text', '!bg-base-200': currentTab === 'text' }"
+            @click="currentTab = 'text'"
+            >Text</a
+          >
+          <a
+            role="tab"
+            class="tab"
+            :class="{
+              'tab-active': currentTab === 'shape',
+              '!bg-base-200': currentTab === 'shape',
+            }"
+            @click="currentTab = 'shape'"
+            >Shape</a
+          >
+          <a
+            role="tab"
+            class="tab"
+            :class="{
+              'tab-active': currentTab === 'animate',
+              '!bg-base-200': currentTab === 'animate',
+            }"
+            @click="currentTab = 'animate'"
+            >Animate</a
+          >
+        </div>
+        <div class="bg-base-200 p-4 h-full">Sidebar</div>
       </div>
     </main>
   </div>
