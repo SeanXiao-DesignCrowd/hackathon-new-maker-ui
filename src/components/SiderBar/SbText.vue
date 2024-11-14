@@ -2,7 +2,8 @@
 import { ref } from 'vue'
 
 const fontSpacing = ref(40)
-const isCurved = ref(false)
+const isCurved = ref(true)
+const isOutlined = ref(true)
 
 const handleFontSpacingChange = (value: number) => {
   fontSpacing.value = value
@@ -23,8 +24,8 @@ const toggleCurved = () => {
     <div class="flex flex-col gap-6 items-center justify-center">
       <input type="text" placeholder="Logo Text Here" class="input input-bordered w-full" />
 
-      <div id="text-spacing" class="flex gap-4 w-full justify-between">
-        <div class="label w-24">Spacing</div>
+      <div id="text-spacing" class="label flex gap-4 w-full justify-between">
+        <div class="label-text-lg">Spacing</div>
         <div class="flex items-center w-full">
           <input
             type="range"
@@ -53,6 +54,13 @@ const toggleCurved = () => {
             :checked="isCurved"
             @change="toggleCurved"
           />
+        </label>
+      </div>
+
+      <div class="form-control flex justify-between w-full">
+        <label class="label cursor-pointer">
+          <span class="label-text-lg">Outline</span>
+          <input type="checkbox" :checked="isOutlined" class="checkbox checkbox-accent" />
         </label>
       </div>
     </div>

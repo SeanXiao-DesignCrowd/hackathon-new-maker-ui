@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { TABS } from './constants/constants'
 import Text from './components/SiderBar/SbText.vue'
+import Shape from './components/SiderBar/SbShape.vue'
 
 const themes = ['light', 'dark', 'black', 'luxury', 'cyberpunk']
 
@@ -45,7 +46,7 @@ if (typeof window !== 'undefined') {
 </script>
 
 <template>
-  <div class="h-screen" :data-theme="currentTheme">
+  <div class="h-screen w-screen" :data-theme="currentTheme">
     <nav class="navbar bg-base-300">
       <div class="flex-1">
         <div class="breadcrumbs text-lg">
@@ -70,6 +71,19 @@ if (typeof window !== 'undefined') {
             </li>
           </ul>
         </div>
+        <button class="btn btn-neutral m-2" onclick="logout_modal.show()">Log out</button>
+        <dialog id="logout_modal" class="modal">
+          <div class="modal-box">
+            <h3 class="text-2xl font-bold">No!</h3>
+            <p class="py-4 text-lg">There is no escape from this!</p>
+            <div class="modal-action">
+              <form method="dialog">
+                <!-- if there is a button in form, it will close the modal -->
+                <button class="btn text-lg">Fair enough</button>
+              </form>
+            </div>
+          </div>
+        </dialog>
       </div>
     </nav>
 
@@ -99,10 +113,75 @@ if (typeof window !== 'undefined') {
     </div>
 
     <main class="p-6 w-full flex gap-6">
-      <div class="left-side-container flex flex-col flex-grow w-2/3 gap-6 items-center h-full">
+      <div class="left-side-container flex flex-col flex-grow w-2/3 gap-4 items-center h-full">
+        <ul class="menu menu-horizontal bg-base-200 rounded-box">
+          <li>
+            <a class="tooltip" data-tip="Reset">
+              <svg
+                class="h-5 w-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g id="Arrow / Arrow_Reload_02">
+                  <path
+                    id="Vector"
+                    d="M14 16H19V21M10 8H5V3M19.4176 9.0034C18.8569 7.61566 17.9181 6.41304 16.708 5.53223C15.4979 4.65141 14.0652 4.12752 12.5723 4.02051C11.0794 3.9135 9.58606 4.2274 8.2627 4.92661C6.93933 5.62582 5.83882 6.68254 5.08594 7.97612M4.58203 14.9971C5.14272 16.3848 6.08146 17.5874 7.29157 18.4682C8.50169 19.3491 9.93588 19.8723 11.4288 19.9793C12.9217 20.0863 14.4138 19.7725 15.7371 19.0732C17.0605 18.374 18.1603 17.3175 18.9131 16.0239"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </g>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a class="tooltip" data-tip="Undo">
+              <svg
+                class="h-5 w-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g id="Arrow / Arrow_Undo_Up_Left">
+                  <path
+                    id="Vector"
+                    d="M7 13L3 9M3 9L7 5M3 9H16C18.7614 9 21 11.2386 21 14C21 16.7614 18.7614 19 16 19H11"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </g>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a class="tooltip" data-tip="Redo">
+              <svg
+                class="h-5 w-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g id="Arrow / Arrow_Undo_Up_Right">
+                  <path
+                    id="Vector"
+                    d="M17 13L21 9M21 9L17 5M21 9H8C5.23858 9 3 11.2386 3 14C3 16.7614 5.23858 19 8 19H13"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </g>
+              </svg>
+            </a>
+          </li>
+        </ul>
         <div id="maker-canvas" class="hero border-4 border-dashed border-base-300">
           <div class="hero-content text-center">
-            <img src="@/assets/radiohead-logo.png" alt="Canvas" :style="{ height: '66vh' }" />
+            <img src="@/assets/radiohead-logo.png" alt="Canvas" :style="{ height: '58vh' }" />
           </div>
         </div>
 
@@ -164,10 +243,10 @@ if (typeof window !== 'undefined') {
             <Text />
           </div>
           <div v-if="currentTab === TABS.SHAPE">
-            <shape />
+            <Shape />
           </div>
           <div v-if="currentTab === TABS.LAYOUT">
-            <layout />
+            <Layout />
           </div>
         </div>
       </div>
