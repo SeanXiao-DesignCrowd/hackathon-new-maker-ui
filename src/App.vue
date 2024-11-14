@@ -1,85 +1,56 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import { ref } from 'vue'
+
+// Available DaisyUI themes
+const themes = ['light', 'dark', 'black', 'luxury', 'cyberpunk']
+
+const currentTheme = ref(localStorage.getItem('theme') || 'light')
+
+const updateTheme = (theme: string) => {
+  console.log(theme)
+  currentTheme.value = theme
+  localStorage.setItem('theme', theme)
+}
+
+// Load saved theme on mount
+if (typeof window !== 'undefined') {
+  const savedTheme = localStorage.getItem('theme')
+  if (savedTheme && themes.includes(savedTheme)) {
+    currentTheme.value = savedTheme
+  }
+}
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+  <div class="min-h-screen" :data-theme="currentTheme">
+    <nav class="navbar bg-base-300">
+      <div class="flex-1 gap-2">
+        <img src="@/assets/logo.svg" alt="Logo" class="p-2" />
+        <div class="breadcrumbs text-lg">
+          <ul>
+            <li><a>Home</a></li>
+            <li><a>Logo</a></li>
+            <li>Sean's Logo</li>
+          </ul>
+        </div>
+      </div>
+      <div class="flex-none">
+        <div class="dropdown dropdown-end">
+          <div tabindex="0" role="button" class="btn m-1 capitalize">{{ currentTheme }}</div>
+          <ul
+            tabindex="0"
+            class="menu dropdown-content bg-base-200 rounded-box z-[1] w-36 p-2 shadow"
+          >
+            <li v-for="theme in themes" :key="theme" class="capitalize" @click="updateTheme(theme)">
+              <a>{{ theme }}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+    <main class="container mx-auto p-4"></main>
+  </div>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
-</style>
+<style scoped></style>
