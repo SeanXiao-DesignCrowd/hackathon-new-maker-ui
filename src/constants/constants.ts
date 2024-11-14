@@ -3,3 +3,5 @@ export enum TABS {
   SHAPE = 'shape',
   LAYOUT = 'layout',
 }
+
+export const THEMES = ['light', 'corporate', 'dark', 'black', 'luxury', 'cyberpunk']
