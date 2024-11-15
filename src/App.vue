@@ -113,8 +113,10 @@ if (typeof window !== 'undefined') {
       </div>
     </div>
 
-    <main class="p-6 w-full flex gap-6">
-      <div class="left-side-container flex flex-col flex-grow w-2/3 gap-4 items-center h-full">
+    <main class="p-6 w-full flex gap-6 h-full" :style="{ height: 'calc(100vh - 88px)' }">
+      <div
+        class="left-side-container flex flex-col flex-grow h-full w-2/3 gap-4 items-center justify-between"
+      >
         <ul class="menu menu-horizontal bg-base-200 rounded-box">
           <li>
             <a class="tooltip" data-tip="Reset">
@@ -180,13 +182,20 @@ if (typeof window !== 'undefined') {
             </a>
           </li>
         </ul>
-        <div id="maker-canvas" class="hero border-4 border-dashed border-base-300 bg-base-200">
+        <div
+          id="maker-canvas"
+          class="hero border-4 border-dashed border-base-300 bg-base-200 flex-grow"
+        >
           <div class="hero-content text-center">
-            <img src="@/assets/radiohead-logo.png" alt="Canvas" :style="{ height: '58vh' }" />
+            <img
+              src="@/assets/radiohead-logo.png"
+              alt="Canvas"
+              :style="{ minHeight: '50vh', maxHeight: '60vh' }"
+            />
           </div>
         </div>
 
-        <div id="maker-bottom-container" class="hero position-absolute border-6">
+        <div id="maker-bottom-container" class="hero position-absolute bottom-0">
           <div class="hero-content text-center flex gap-16 rounded-box bg-base-200">
             <button class="btn btn-primary w-36" @click="toggleSuccessAlert('Your logo is saved!')">
               Save progress
@@ -201,7 +210,7 @@ if (typeof window !== 'undefined') {
         </div>
       </div>
 
-      <div class="right-side-container flex-grow w-1/3" :style="{ height: '80vh' }">
+      <div class="right-side-container flex flex-col flex-grow h-full w-1/3">
         <div role="tablist" class="tabs tabs-lifted">
           <a
             role="tab"
