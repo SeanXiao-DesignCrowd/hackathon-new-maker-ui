@@ -180,7 +180,7 @@ if (typeof window !== 'undefined') {
             </a>
           </li>
         </ul>
-        <div id="maker-canvas" class="hero border-4 border-dashed border-base-300">
+        <div id="maker-canvas" class="hero border-4 border-dashed border-base-300 bg-base-200">
           <div class="hero-content text-center">
             <img src="@/assets/radiohead-logo.png" alt="Canvas" :style="{ height: '58vh' }" />
           </div>
