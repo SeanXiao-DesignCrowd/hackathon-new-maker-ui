@@ -195,7 +195,7 @@ if (typeof window !== 'undefined') {
           </div>
         </div>
 
-        <div id="maker-bottom-container" class="hero position-absolute bottom-0">
+        <div id="maker-bottom-container" class="hero">
           <div class="hero-content text-center flex gap-16 rounded-box bg-base-200">
             <button class="btn btn-primary w-36" @click="toggleSuccessAlert('Your logo is saved!')">
               Save progress
