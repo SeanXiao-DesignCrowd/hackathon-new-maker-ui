@@ -20,7 +20,7 @@ const toggleSuccessAlert = (content: string) => {
   setTimeout(() => {
     showSuccessAlert.value = false
     successAlertContent.value = ''
-  }, 1000)
+  }, 2000)
 }
 
 const toggleDownloadingToast = (content: string) => {
@@ -29,7 +29,7 @@ const toggleDownloadingToast = (content: string) => {
   setTimeout(() => {
     showDownloadingToast.value = false
     downloadingToastContent.value = ''
-  }, 3000)
+  }, 2000)
 }
 
 const updateTheme = (theme: string) => {
